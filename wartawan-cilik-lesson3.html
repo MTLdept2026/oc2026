@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wartawan Cilik | Pelajaran 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --bg:           #F6F0E4;
+      --surface:      #FFFFFF;
+      --navy:         #1A2D42;
+      --navy-deep:    #0E1D2E;
+      --teal:         #2B7E78;
+      --teal-tint:    rgba(43,126,120,0.09);
+      --gold:         #C49840;
+      --gold-tint:    rgba(196,152,64,0.11);
+      --rose:         #C5704C;
+      --ink:          #1B2030;
+      --ink-60:       rgba(27,32,48,0.58);
+      --ink-25:       rgba(27,32,48,0.22);
+      --ink-10:       rgba(27,32,48,0.07);
+      --cream:        #FDFAF4;
+      --line:         rgba(27,32,48,0.09);
+      --line-strong:  rgba(27,32,48,0.15);
+      --shadow-sm:    0 2px 8px rgba(27,32,48,0.06);
+      --shadow-md:    0 8px 24px rgba(27,32,48,0.09);
+      --shadow-lg:    0 20px 48px rgba(27,32,48,0.11);
+      --r-xs: 8px;
+      --r-sm: 12px;
+      --r-md: 18px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+    }
+
+    /* ── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Base ───────────────────────────────────────────────── */
+    body {
+      font-family: 'DM Sans', 'Segoe UI', sans-serif;
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 70% 45% at 90% -5%, rgba(196,152,64,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 40% at -5% 65%, rgba(43,126,120,0.09) 0%, transparent 50%);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      line-height: 1.08;
+    }
+
+    /* ── Page wrapper ────────────────────────────────────────── */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: clamp(16px, 3vw, 32px) clamp(16px, 4vw, 44px) 96px;
+    }
+
+    /* ── Topbar ──────────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: rgba(255,255,255,0.88);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      font-size: 0.83rem;
+      color: var(--ink-60);
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .toggle-wrap:hover { border-color: rgba(27,32,48,0.25); }
+
+    .toggle-wrap input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--teal);
+      cursor: pointer;
+    }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero { margin-bottom: 64px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 18px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--teal);
+      border-radius: 2px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      color: var(--navy-deep);
+      max-width: 15ch;
+      margin-bottom: 20px;
+    }
+
+    .hero .lead {
+      font-size: 1.02rem;
+      color: var(--ink-60);
+      max-width: 56ch;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .en-text {
+      display: none;
+      font-size: 0.87rem;
+      color: var(--ink-60);
+      font-style: italic;
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    body.show-translation .en-text { display: block; }
+
+    .notice {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: var(--r-sm);
+      background: var(--teal-tint);
+      border: 1px solid rgba(43,126,120,0.18);
+      font-size: 0.86rem;
+      color: var(--teal);
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    .notice::before {
+      content: '◆';
+      font-size: 0.6rem;
+      flex-shrink: 0;
+      margin-top: 3px;
+      opacity: 0.7;
+    }
+
+    /* Hero meta row */
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding-top: 28px;
+      border-top: 1px solid var(--line-strong);
+    }
+
+    /* Mission card */
+    .mission-card {
+      background: var(--navy);
+      border-radius: var(--r-lg);
+      padding: 22px 20px;
+    }
+
+    .mission-card .eyebrow {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .mission-card ol {
+      list-style: none;
+      counter-reset: mission;
+      display: grid;
+      gap: 9px;
+    }
+
+    .mission-card ol li {
+      counter-increment: mission;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.45;
+    }
+
+    .mission-card ol li::before {
+      content: counter(mission);
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(196,152,64,0.25);
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      position: relative;
+      padding-top: 4px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 32px;
+      right: 32px;
+      height: 1px;
+      background: var(--line-strong);
+      z-index: 0;
+    }
+
+    .time-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .time-step .dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 1.5px solid var(--line-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .time-step .t-time {
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--ink-60);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+      line-height: 1.2;
+    }
+
+    .time-step .t-label {
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    /* ── Main section layout ─────────────────────────────────── */
+    main {
+      display: grid;
+      gap: 0;
+    }
+
+    .section {
+      padding: 48px 0;
+      border-top: 1px solid var(--line-strong);
+    }
+
+    .section:last-child { padding-bottom: 0; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 0 20px;
+      align-items: start;
+      margin-bottom: 32px;
+    }
+
+    .step-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--ink-10);
+      letter-spacing: -0.04em;
+      user-select: none;
+      padding-top: 6px;
+    }
+
+    .step-content h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      color: var(--navy-deep);
+      margin-bottom: 7px;
+    }
+
+    .section p.sub {
+      font-size: 0.92rem;
+      color: var(--ink-60);
+      max-width: 56ch;
+      line-height: 1.65;
+    }
+
+    .time-tag {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--teal-tint);
+      color: var(--teal);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-top: 6px;
+    }
+
+    /* ── Grids ───────────────────────────────────────────────── */
+    .grid-2 { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+    .stack  { display: grid; gap: 15px; }
+
+    /* ── Card ────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--r-md);
+      border: 1px solid var(--line-strong);
+      padding: 22px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    /* ── Dossier cards ───────────────────────────────────────── */
+    .dossier {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: var(--r-md);
+      padding: 22px 18px 20px;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* folded corner accent */
+    .dossier::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 36px; height: 36px;
+      background: rgba(196,152,64,0.18);
+      clip-path: polygon(100% 0, 0 0, 100% 100%);
+      transition: opacity 0.2s;
+    }
+
+    .dossier:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(196,152,64,0.4);
+    }
+
+    .dossier:hover::after { opacity: 1.4; }
+
+    .dossier.active {
+      border-color: rgba(196,152,64,0.65);
+      box-shadow: 0 0 0 2px rgba(196,152,64,0.18), var(--shadow-lg);
+    }
+
+    .dossier .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      background: rgba(196,152,64,0.14);
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .dossier h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .dossier p {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.58;
+    }
+
+    .dossier .en-text {
+      color: rgba(255,255,255,0.3);
+      font-style: italic;
+    }
+
+    /* ── Active clue box ─────────────────────────────────────── */
+    .active-clue {
+      background: var(--navy);
+      border-radius: var(--r-sm);
+      padding: 16px 18px;
+    }
+
+    .active-clue .clue-id {
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px;
+    }
+
+    .active-clue #active-dossier-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 7px;
+      line-height: 1.2;
+    }
+
+    .active-clue #active-dossier-clue {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.58;
+    }
+
+    .active-clue #active-dossier-clue-en {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    /* ── Labels & Inputs ─────────────────────────────────────── */
+    label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--ink-60);
+      margin-bottom: 7px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--line-strong);
+      border-radius: var(--r-sm);
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: var(--ink);
+      line-height: 1.55;
+      resize: vertical;
+      transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+    }
+
+    input[type="text"] { min-height: 44px; resize: none; }
+    textarea           { min-height: 92px; }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--teal);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(43,126,120,0.1);
+    }
+
+    .mini {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--ink-25);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    /* ── Chips ───────────────────────────────────────────────── */
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .chip {
+      border: 1.5px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--navy);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      line-height: 1.3;
+    }
+
+    .chip:hover {
+      background: var(--teal-tint);
+      border-color: rgba(43,126,120,0.35);
+      transform: translateY(-1px);
+    }
+
+    /* ── Buttons ─────────────────────────────────────────────── */
+    .btn {
+      border: none;
+      border-radius: var(--r-sm);
+      padding: 11px 20px;
+      font-family: inherit;
+      font-size: 0.87rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s, box-shadow 0.15s;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+
+    .btn:hover:not(:disabled) { transform: translateY(-1px); }
+    .btn:active:not(:disabled) { transform: translateY(0); }
+
+    .btn.primary {
+      background: var(--navy);
+      color: rgba(255,255,255,0.93);
+      box-shadow: 0 4px 14px rgba(26,45,66,0.22);
+    }
+
+    .btn.primary:hover:not(:disabled) {
+      background: var(--navy-deep);
+      box-shadow: 0 6px 20px rgba(26,45,66,0.28);
+    }
+
+    .btn.soft {
+      background: transparent;
+      color: var(--ink-60);
+      border: 1.5px solid var(--line-strong);
+    }
+
+    .btn.soft:hover:not(:disabled) {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--ink-25);
+    }
+
+    .btn:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* ── Chat ────────────────────────────────────────────────── */
+    .chat-shell {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .chat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 13px;
+      border-radius: var(--r-xs);
+      background: var(--bg);
+      border: 1px solid var(--line-strong);
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+    }
+
+    #chat-mode-label  { color: var(--teal); font-weight: 600; }
+    #ready-label      { color: var(--ink-60); text-align: right; }
+
+    .chat-log {
+      height: 340px;
+      overflow-y: auto;
+      padding: 14px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--line-strong);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-behavior: smooth;
+    }
+
+    .msg {
+      max-width: 86%;
+      padding: 11px 14px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      line-height: 1.58;
+    }
+
+    .msg small {
+      display: block;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      opacity: 0.55;
+    }
+
+    .msg.user {
+      align-self: flex-end;
+      background: var(--navy);
+      color: rgba(255,255,255,0.92);
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg.user small { color: rgba(255,255,255,0.7); }
+
+    .msg.bot {
+      align-self: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-controls { display: grid; gap: 9px; margin-top: 10px; }
+
+    .chat-input-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .chat-input-row textarea { min-height: 52px; }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    /* ── Preview card ────────────────────────────────────────── */
+    .preview {
+      display: grid;
+      gap: 1px;
+      background: var(--line-strong);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+    }
+
+    .preview-item {
+      padding: 11px 15px;
+      background: var(--surface);
+    }
+
+    .preview-item strong {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--ink-25);
+      margin-bottom: 3px;
+    }
+
+    /* ── Scenario list ───────────────────────────────────────── */
+    .scenario-list { display: grid; gap: 8px; }
+
+    .scenario-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--r-sm);
+      background: var(--surface);
+      border: 1.5px solid var(--line-strong);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .scenario-item:has(input:checked) {
+      border-color: rgba(43,126,120,0.45);
+      background: var(--teal-tint);
+    }
+
+    .scenario-item input {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--teal);
+      cursor: pointer;
+    }
+
+    .scenario-item span {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    /* ── Sentence frames ─────────────────────────────────────── */
+    .frame-list { display: grid; gap: 8px; }
+
+    .frame-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg);
+      border-radius: var(--r-sm);
+      border: 1px solid var(--line-strong);
+      font-size: 0.87rem;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    .frame-num {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.66rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* ── Reflection section ──────────────────────────────────── */
+    .section.reflection {
+      background: linear-gradient(140deg,
+        rgba(196,152,64,0.06) 0%,
+        rgba(197,112,76,0.04) 100%);
+      border-radius: var(--r-xl);
+      padding: 40px 36px;
+      border: 1px solid rgba(196,152,64,0.18);
+      border-top: 1px solid rgba(196,152,64,0.18);
+      margin-top: 12px;
+    }
+
+    /* ── Export section ─────────────────────────────────────── */
+    .export-section {
+      margin-top: 56px;
+      padding-top: 48px;
+      border-top: 1px solid var(--line-strong);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .export-section p {
+      font-size: 0.9rem;
+      color: var(--ink-60);
+      max-width: 44ch;
+      line-height: 1.6;
+    }
+
+    .btn.export {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--navy);
+      color: rgba(255,255,255,0.92);
+      border-radius: var(--r-sm);
+      font-size: 0.92rem;
+      font-weight: 600;
+      box-shadow: 0 4px 18px rgba(26,45,66,0.22);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    .btn.export:hover { background: var(--navy-deep); transform: translateY(-2px); box-shadow: 0 8px 26px rgba(26,45,66,0.28); }
+    .btn.export:active { transform: translateY(0); }
+    .btn.export:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .export-icon {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    .export-hint {
+      font-size: 0.74rem;
+      color: var(--ink-25);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── The card that gets exported ────────────────────────── */
+    #export-card {
+      position: fixed;
+      top: -9999px;
+      left: -9999px;
+      width: 900px;
+      font-family: 'DM Sans', 'Segoe UI', sans-serif;
+      font-size: 15px;
+      color: #1B2030;
+      background: #F6F0E4;
+      padding: 52px 56px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #export-card .ec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1.5px solid #1B2030;
+    }
+
+    #export-card .ec-wordmark {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.5rem;
+      color: #1A2D42;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    #export-card .ec-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(27,32,48,0.45);
+    }
+
+    #export-card .ec-date {
+      font-size: 0.78rem;
+      color: rgba(27,32,48,0.45);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    #export-card .ec-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    #export-card .ec-block {
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 1px solid rgba(27,32,48,0.1);
+      overflow: hidden;
+    }
+
+    #export-card .ec-block-dark {
+      background: #1A2D42;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    #export-card .ec-block-head {
+      padding: 14px 18px 10px;
+      border-bottom: 1px solid rgba(27,32,48,0.08);
+    }
+
+    #export-card .ec-block-dark .ec-block-head {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    #export-card .ec-block-title {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(27,32,48,0.35);
+    }
+
+    #export-card .ec-block-dark .ec-block-title {
+      color: #C49840;
+    }
+
+    #export-card .ec-block-name {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.3rem;
+      color: #1A2D42;
+      letter-spacing: -0.01em;
+      margin-top: 4px;
+      line-height: 1.15;
+    }
+
+    #export-card .ec-block-dark .ec-block-name {
+      color: rgba(255,255,255,0.95);
+    }
+
+    #export-card .ec-rows {
+      display: grid;
+      gap: 1px;
+      background: rgba(27,32,48,0.08);
+    }
+
+    #export-card .ec-block-dark .ec-rows {
+      background: rgba(255,255,255,0.06);
+    }
+
+    #export-card .ec-row {
+      background: #FFFFFF;
+      padding: 11px 18px;
+    }
+
+    #export-card .ec-block-dark .ec-row {
+      background: #1A2D42;
+    }
+
+    #export-card .ec-row-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(27,32,48,0.28);
+      margin-bottom: 3px;
+    }
+
+    #export-card .ec-block-dark .ec-row-label {
+      color: rgba(255,255,255,0.3);
+    }
+
+    #export-card .ec-row-val {
+      font-size: 0.86rem;
+      color: #1B2030;
+      line-height: 1.5;
+    }
+
+    #export-card .ec-block-dark .ec-row-val {
+      color: rgba(255,255,255,0.82);
+    }
+
+    #export-card .ec-footer {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #export-card .ec-footer-note {
+      font-size: 0.68rem;
+      color: rgba(27,32,48,0.3);
+      letter-spacing: 0.06em;
+    }
+
+    #export-card .ec-stamp {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(27,32,48,0.2);
+      border: 1.5px solid rgba(27,32,48,0.15);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero-meta { grid-template-columns: 1fr; }
+      .section-head { grid-template-columns: 52px 1fr auto; }
+    }
+
+    @media (max-width: 720px) {
+      .grid-2, .chat-shell { grid-template-columns: 1fr; }
+      .grid-3             { grid-template-columns: 1fr; }
+      .hero-meta          { gap: 16px; }
+      .timeline           { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .timeline::before   { display: none; }
+      .section-head       { grid-template-columns: 44px 1fr; gap: 0 14px; }
+      .section-head .time-tag { grid-column: 2; }
+      .section.reflection { padding: 24px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .step-num      { font-size: 2.2rem; }
+      .timeline      { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="pill">Wartawan Cilik · Pelajaran 3 · 50 minit</div>
+      <label class="toggle-wrap">
+        <input type="checkbox" id="translation-toggle">
+        <span>Terjemahan BI</span>
+      </label>
+    </div>
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-eyebrow">Pelajaran 3</div>
+      <h1>Wawancara Bersama Tetamu Misteri</h1>
+      <p class="lead">Hari ini kamu akan menemui seorang tetamu misteri. Tugas kamu ialah bertanya soalan yang baik, kumpul petunjuk, faham sebab watak itu bertindak, dan pilih satu pengajaran penting untuk diri kamu.</p>
+      <p class="en-text lead">Today you will meet a mystery guest. Ask good questions, gather clues, understand why the character acted that way, and choose one important lesson for yourself.</p>
+      <div class="notice">Cuba faham dalam Bahasa Melayu dahulu. Buka bantuan Bahasa Inggeris hanya jika kamu benar-benar perlukan.</div>
+
+      <div class="hero-meta">
+        <div class="mission-card">
+          <span class="eyebrow">Misi Hari Ini</span>
+          <ol>
+            <li>Imbas semula kemahiran lama</li>
+            <li>Pilih satu fail misteri</li>
+            <li>Temu duga watak dengan soalan yang kuat</li>
+            <li>Tulis pengajaran dan rancangan untuk masa depan</li>
+          </ol>
+        </div>
+
+        <div class="timeline">
+          <div class="time-step">
+            <div class="dot">1</div>
+            <div class="t-time">0–5 min</div>
+            <div class="t-label">Mula</div>
+          </div>
+          <div class="time-step">
+            <div class="dot">2</div>
+            <div class="t-time">5–10 min</div>
+            <div class="t-label">Imbas</div>
+          </div>
+          <div class="time-step">
+            <div class="dot">3</div>
+            <div class="t-time">10–22 min</div>
+            <div class="t-label">Pilih &amp; Rangka</div>
+          </div>
+          <div class="time-step">
+            <div class="dot">4</div>
+            <div class="t-time">22–35 min</div>
+            <div class="t-label">Temu Duga</div>
+          </div>
+          <div class="time-step">
+            <div class="dot">5</div>
+            <div class="t-time">35–50 min</div>
+            <div class="t-label">Refleksi</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ── 01 Imbas Cepat ─────────────────────────────────── -->
+      <section class="section">
+        <div class="section-head">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h2>Imbas Cepat</h2>
+            <p class="sub">Sebelum temu duga bermula, ingat semula kemahiran wartawan kamu.</p>
+            <p class="en-text sub">Before the interview starts, wake up your reporter skills.</p>
+          </div>
+          <div class="time-tag">5–10 min</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card stack">
+            <div>
+              <label for="recall-word">Satu kata tanya</label>
+              <input id="recall-word" data-save type="text" placeholder="Contoh: Bagaimana">
+            </div>
+            <div>
+              <label for="recall-value">Satu nilai atau pengajaran</label>
+              <input id="recall-value" data-save type="text" placeholder="Contoh: jujur">
+            </div>
+          </div>
+          <div class="card">
+            <label for="recall-evidence">Satu bukti atau idea penting</label>
+            <textarea id="recall-evidence" data-save placeholder="Contoh: watak itu tidak putus asa walaupun susah"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 02 Pilih Fail Misteri ──────────────────────────── -->
+      <section class="section">
+        <div class="section-head">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h2>Pilih Satu Fail Misteri</h2>
+            <p class="sub">Pilih satu fail. Jangan cepat tanya nama. Cari dulu apa yang berlaku, kenapa watak itu bertindak, dan apa yang kita boleh belajar.</p>
+            <p class="en-text sub">Choose one case file. Do not rush to the name. First find out what happened, why the character acted that way, and what we can learn.</p>
+          </div>
+          <div class="time-tag">10–15 min</div>
+        </div>
+
+        <div class="grid-3" id="dossier-grid"></div>
+      </section>
+
+      <!-- ── 03 Rangka Soalan ───────────────────────────────── -->
+      <section class="section">
+        <div class="section-head">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h2>Rangka Soalan</h2>
+            <p class="sub">Soalan yang baik datang daripada petunjuk. Tanya tentang cerita, sebab, dan tindakan watak sebelum cuba dapatkan nama.</p>
+            <p class="en-text sub">Good questions come from clues. Ask about the story, reasons, and actions before trying to get the name.</p>
+          </div>
+          <div class="time-tag">15–22 min</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card stack">
+            <div class="active-clue">
+              <div class="clue-id">Petunjuk Semasa</div>
+              <div id="active-dossier-title">Belum dipilih</div>
+              <div id="active-dossier-clue">Pilih satu fail misteri di atas untuk melihat petunjuk.</div>
+              <div class="en-text" id="active-dossier-clue-en"></div>
+            </div>
+            <div class="chip-row" id="prompt-chips"></div>
+          </div>
+
+          <div class="card stack">
+            <div>
+              <label for="main-question">Soalan utama</label>
+              <textarea id="main-question" data-save placeholder="Tulis satu soalan utama berdasarkan petunjuk."></textarea>
+            </div>
+            <div>
+              <label for="follow-question">Soalan susulan</label>
+              <textarea id="follow-question" data-save placeholder="Tulis satu soalan susulan untuk dapatkan jawapan yang lebih jelas."></textarea>
+            </div>
+            <div>
+              <label for="first-idea">Idea awal</label>
+              <input id="first-idea" data-save type="text" placeholder="Contoh: guna akal untuk tolong orang">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 Studio Temu Duga ───────────────────────────── -->
+      <section class="section">
+        <div class="section-head">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h2>Studio Temu Duga</h2>
+            <p class="sub">Tanya sekurang-kurangnya tiga soalan. Dengar baik-baik. Catat apa yang berlaku, kenapa watak itu bertindak, dan apa yang kamu belajar.</p>
+            <p class="en-text sub">Ask at least three questions. Listen carefully. Write down what happened, why the character acted, and what you learned.</p>
+          </div>
+          <div class="time-tag">22–35 min</div>
+        </div>
+
+        <div class="chat-shell">
+          <div class="card">
+            <div class="chat-top">
+              <div id="chat-mode-label">Menyemak sambungan...</div>
+              <div id="ready-label">Lengkapkan fail misteri dan soalan dahulu</div>
+            </div>
+            <div class="chat-log" id="chat-log"></div>
+            <div class="chat-controls">
+              <div class="chip-row" id="chat-prompt-chips"></div>
+              <div class="chat-input-row">
+                <textarea id="chat-input" placeholder="Taip soalan kamu di sini..."></textarea>
+                <button class="btn primary" id="send-btn" disabled>Hantar</button>
+              </div>
+              <div class="btn-row">
+                <button class="btn soft" id="use-main-btn">Guna Soalan Utama</button>
+                <button class="btn soft" id="use-follow-btn">Soalan Susulan</button>
+                <button class="btn soft" id="reset-chat-btn">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card stack">
+            <div>
+              <label for="story-note">Apa yang berlaku?</label>
+              <textarea id="story-note" data-save placeholder="Tulis masalah atau peristiwa utama."></textarea>
+            </div>
+            <div>
+              <label for="motivation-note">Kenapa watak ini bertindak begitu?</label>
+              <textarea id="motivation-note" data-save placeholder="Tulis sebab watak itu bertindak begitu."></textarea>
+            </div>
+            <div>
+              <label for="lesson-note">Apakah pengajaran yang paling penting?</label>
+              <textarea id="lesson-note" data-save placeholder="Tulis nilai atau pengajaran utama."></textarea>
+            </div>
+            <div>
+              <label for="evidence-note">Satu bukti penting daripada temu duga</label>
+              <textarea id="evidence-note" data-save placeholder="Tulis satu jawapan penting yang membantu kamu faham watak ini."></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 05 Kad Profil Rahsia ──────────────────────────── -->
+      <section class="section">
+        <div class="section-head">
+          <div class="step-num">05</div>
+          <div class="step-content">
+            <h2>Kad Profil Rahsia</h2>
+            <p class="sub">Sekarang kamu sudah boleh menulis nama watak misteri itu. Fokus pada cerita, tindakan, nilai RECIPE, dan bukti bagi setiap nilai.</p>
+            <p class="en-text sub">You may now write the mystery guest's name. Focus on the story, actions, RECIPE values, and evidence for each value.</p>
+          </div>
+          <div class="time-tag">35–43 min</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card stack">
+            <div>
+              <label for="cover-name">Nama watak misteri</label>
+              <input id="cover-name" data-save type="text" placeholder="Tulis nama watak ini">
+            </div>
+            <div>
+              <label for="profile-story">Ringkasan cerita</label>
+              <textarea id="profile-story" data-save placeholder="Tulis secara ringkas apa yang berlaku."></textarea>
+            </div>
+            <div>
+              <label for="profile-action">Tindakan penting watak</label>
+              <textarea id="profile-action" data-save placeholder="Apakah yang dilakukan oleh watak itu?"></textarea>
+            </div>
+            <div>
+              <label for="profile-value-1">Nilai RECIPE 1</label>
+              <input id="profile-value-1" data-save type="text" placeholder="Contoh: Integriti">
+            </div>
+            <div>
+              <label for="profile-evidence-1">Bukti bagi Nilai 1</label>
+              <textarea id="profile-evidence-1" data-save placeholder="Apakah yang dibuat oleh watak ini yang menunjukkan nilai itu?"></textarea>
+            </div>
+            <div>
+              <label for="profile-value-2">Nilai RECIPE 2</label>
+              <input id="profile-value-2" data-save type="text" placeholder="Contoh: Daya tahan">
+            </div>
+            <div>
+              <label for="profile-evidence-2">Bukti bagi Nilai 2</label>
+              <textarea id="profile-evidence-2" data-save placeholder="Tulis satu lagi tindakan atau bukti yang menunjukkan nilai kedua."></textarea>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="mini">Pratonton</span>
+            <div class="preview">
+              <div class="preview-item">
+                <strong>Nama watak misteri</strong>
+                <div id="preview-cover">Belum diisi</div>
+              </div>
+              <div class="preview-item">
+                <strong>Ringkasan cerita</strong>
+                <div id="preview-story">Belum diisi</div>
+              </div>
+              <div class="preview-item">
+                <strong>Tindakan penting</strong>
+                <div id="preview-action">Belum diisi</div>
+              </div>
+              <div class="preview-item">
+                <strong>Nilai RECIPE 1</strong>
+                <div id="preview-value-1">Belum diisi</div>
+              </div>
+              <div class="preview-item">
+                <strong>Bukti bagi Nilai 1</strong>
+                <div id="preview-evidence-1">Belum diisi</div>
+              </div>
+              <div class="preview-item">
+                <strong>Nilai RECIPE 2</strong>
+                <div id="preview-value-2">Belum diisi</div>
+              </div>
+              <div class="preview-item">
+                <strong>Bukti bagi Nilai 2</strong>
+                <div id="preview-evidence-2">Belum diisi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 06 Refleksi Akhir ─────────────────────────────── -->
+      <section class="section reflection">
+        <div class="section-head">
+          <div class="step-num">06</div>
+          <div class="step-content">
+            <h2>Refleksi Akhir</h2>
+            <p class="sub">Bahagian ini paling penting. Fikirkan watak yang paling memberi kesan kepada kamu, bayangkan apa yang akan watak itu buat dalam situasi hari ini, dan pilih dua nilai RECIPE yang kamu mahu cuba tunjukkan pada masa depan.</p>
+            <p class="en-text sub">This is the most important part. Think about the character who impacted you most, imagine what the character would do in a present-day situation, and choose two RECIPE values you want to show in future.</p>
+          </div>
+          <div class="time-tag">43–50 min</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card stack">
+            <div>
+              <label for="fav-character">Watak kegemaran saya</label>
+              <input id="fav-character" data-save type="text" placeholder="Tulis nama watak kegemaran kamu">
+            </div>
+            <div>
+              <label>Pilih sekurang-kurangnya satu situasi</label>
+              <div class="scenario-list">
+                <label class="scenario-item">
+                  <input id="scenario-choice-1" data-save type="checkbox">
+                  <span>Seorang rakan dibuli dalam kumpulan sembang kelas.</span>
+                </label>
+                <label class="scenario-item">
+                  <input id="scenario-choice-2" data-save type="checkbox">
+                  <span>Kamu gagal dalam satu ujian dan rasa mahu putus asa.</span>
+                </label>
+                <label class="scenario-item">
+                  <input id="scenario-choice-3" data-save type="checkbox">
+                  <span>Ramai orang ikut cakap yang tidak benar tentang seorang kawan.</span>
+                </label>
+              </div>
+            </div>
+            <div>
+              <label for="scenario-prediction">Apakah yang akan dilakukan oleh watak ini? Kenapa?</label>
+              <textarea id="scenario-prediction" data-save placeholder="Pilih sekurang-kurangnya satu situasi. Kemudian tulis apa yang akan dibuat oleh watak itu dan sebabnya."></textarea>
+            </div>
+            <div>
+              <label for="reflect-value-1">Nilai RECIPE pertama yang saya mahu cuba</label>
+              <input id="reflect-value-1" data-save type="text" placeholder="Contoh: Peduli">
+            </div>
+            <div>
+              <label for="future-use-1">Bagaimana saya akan tunjukkan nilai ini nanti</label>
+              <textarea id="future-use-1" data-save placeholder="Contoh: Jika rakan saya sedih, saya akan dengar dan bantu dia."></textarea>
+            </div>
+            <div>
+              <label for="reflect-value-2">Nilai RECIPE kedua yang saya mahu cuba</label>
+              <input id="reflect-value-2" data-save type="text" placeholder="Contoh: Kecemerlangan">
+            </div>
+            <div>
+              <label for="future-use-2">Bagaimana saya akan tunjukkan nilai ini nanti</label>
+              <textarea id="future-use-2" data-save placeholder="Contoh: Apabila saya gagal, saya akan cuba lagi dan fikir dengan lebih baik."></textarea>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="mini">Kerangka Ringkas</span>
+            <div class="frame-list">
+              <div class="frame-item">
+                <div class="frame-num">1</div>
+                <span>Watak kegemaran saya ialah ______ kerana ______.</span>
+              </div>
+              <div class="frame-item">
+                <div class="frame-num">2</div>
+                <span>Jika watak ini berada dalam situasi ______, dia akan ______ kerana ______.</span>
+              </div>
+              <div class="frame-item">
+                <div class="frame-num">3</div>
+                <span>Saya mahu cuba nilai ______ dengan cara ______.</span>
+              </div>
+              <div class="frame-item">
+                <div class="frame-num">4</div>
+                <span>Saya juga mahu cuba nilai ______ dengan cara ______.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Export section -->
+    <div class="export-section">
+      <div>
+        <p>Simpan kerja kamu sebagai imej. Semua nota profil dan refleksi kamu akan dirakam dalam satu kad.</p>
+      </div>
+      <button class="btn export" id="export-btn">
+        <svg class="export-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 13L10 3M10 13L7 10M10 13L13 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 15H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        Simpan Kerja Saya sebagai PNG
+      </button>
+      <span class="export-hint" id="export-hint">Lengkapkan profil dan refleksi kamu dahulu untuk hasil terbaik.</span>
+    </div>
+
+  </div>
+
+  <!-- Hidden export card (rendered offscreen, captured by html2canvas) -->
+  <div id="export-card" aria-hidden="true"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    const storagePrefix = "lesson3_mystery_";
+    const translationToggle = document.getElementById("translation-toggle");
+    const saveFields = document.querySelectorAll("[data-save]");
+    const chatLog = document.getElementById("chat-log");
+    const chatInput = document.getElementById("chat-input");
+    const sendBtn = document.getElementById("send-btn");
+    const useMainBtn = document.getElementById("use-main-btn");
+    const useFollowBtn = document.getElementById("use-follow-btn");
+    const resetChatBtn = document.getElementById("reset-chat-btn");
+    const chatModeLabel = document.getElementById("chat-mode-label");
+    const readyLabel = document.getElementById("ready-label");
+    const dossierGrid = document.getElementById("dossier-grid");
+    const promptChips = document.getElementById("prompt-chips");
+    const chatPromptChips = document.getElementById("chat-prompt-chips");
+    const activeDossierTitle = document.getElementById("active-dossier-title");
+    const activeDossierClue = document.getElementById("active-dossier-clue");
+    const activeDossierClueEn = document.getElementById("active-dossier-clue-en");
+
+    const dossiers = {
+      nadim: {
+        label: "Fail A",
+        title: "Tetamu Ombak",
+        clue: "Seorang budak yang cepat berfikir. Bahaya datang dari tepi laut, dan ramai orang perlukan pertolongan segera.",
+        clueEn: "A quick-thinking boy. Danger came from the seashore, and many people needed urgent help.",
+        prompts: [
+          "Apakah bahaya yang berlaku di tempat kamu?",
+          "Bagaimana kamu menolong orang ketika itu?",
+          "Kenapa kamu berani mencadangkan idea itu?",
+          "Apakah pengajaran daripada pengalaman itu?"
+        ],
+      },
+      mahsuri: {
+        label: "Fail B",
+        title: "Tetamu Purnama",
+        clue: "Seorang wanita yang hidupnya berubah kerana tuduhan yang tidak adil. Walaupun orang layan dia dengan buruk, dia tetap berpegang pada kebenaran.",
+        clueEn: "A woman whose life changed because of an unfair accusation. Even when treated badly, she held on to the truth.",
+        prompts: [
+          "Apakah yang berlaku dalam hidup kamu?",
+          "Bagaimana kamu kekal kuat ketika orang lain tidak adil?",
+          "Kenapa kamu tetap berpegang pada kebenaran?",
+          "Apakah pengajaran yang kamu mahu orang ingat?"
+        ],
+      },
+      matjenin: {
+        label: "Fail C",
+        title: "Tetamu Awan",
+        clue: "Seorang pemuda yang suka membayangkan masa depan yang hebat. Kisahnya menunjukkan bahawa impian sahaja tidak cukup tanpa fokus dan tindakan.",
+        clueEn: "A young man who loves imagining a great future. His story shows that dreams alone are not enough without focus and action.",
+        prompts: [
+          "Apakah yang kamu impikan pada masa itu?",
+          "Mengapa kamu hilang fokus pada tugas kamu?",
+          "Apakah kesilapan yang kamu sedar selepas itu?",
+          "Apakah pengajaran untuk orang yang suka berangan?"
+        ],
+      }
+    };
+
+    let activeGuestKey = "";
+    let previousResponseId = null;
+    let chatMode = "unknown";
+    let isSending = false;
+    let turnCount = 0;
+
+    function restoreFields() {
+      saveFields.forEach((field) => {
+        if (!field.id) return;
+        const saved = localStorage.getItem(storagePrefix + field.id);
+        if (saved === null) return;
+        if (field.type === "checkbox") {
+          field.checked = saved === "true";
+        } else {
+          field.value = saved;
+        }
+      });
+
+      const savedGuest = localStorage.getItem(storagePrefix + "activeGuestKey");
+      if (savedGuest && dossiers[savedGuest]) {
+        selectDossier(savedGuest, false);
+      }
+
+      const savedTurns = Number(localStorage.getItem(storagePrefix + "turnCount") || 0);
+      turnCount = Number.isFinite(savedTurns) ? savedTurns : 0;
+    }
+
+    function persistField(field) {
+      const value = field.type === "checkbox" ? String(field.checked) : field.value;
+      localStorage.setItem(storagePrefix + field.id, value);
+    }
+
+    function buildDossierCards() {
+      Object.entries(dossiers).forEach(([key, item]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "card dossier";
+        button.dataset.guest = key;
+        button.innerHTML = `
+          <span class="label">${item.label}</span>
+          <h3>${item.title}</h3>
+          <p>${item.clue}</p>
+          <p class="en-text">${item.clueEn}</p>
+        `;
+        button.addEventListener("click", () => selectDossier(key, true));
+        dossierGrid.appendChild(button);
+      });
+    }
+
+    function selectDossier(guestKey, regenerateCover) {
+      activeGuestKey = guestKey;
+      localStorage.setItem(storagePrefix + "activeGuestKey", guestKey);
+
+      document.querySelectorAll(".dossier").forEach((card) => {
+        card.classList.toggle("active", card.dataset.guest === guestKey);
+      });
+
+      const dossier = dossiers[guestKey];
+      activeDossierTitle.textContent = `${dossier.label} — ${dossier.title}`;
+      activeDossierClue.textContent = dossier.clue;
+      activeDossierClueEn.textContent = dossier.clueEn;
+
+      promptChips.innerHTML = "";
+      chatPromptChips.innerHTML = "";
+
+      dossier.prompts.forEach((prompt) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip";
+        chip.textContent = prompt;
+        chip.addEventListener("click", () => {
+          document.getElementById("main-question").value = prompt;
+          persistField(document.getElementById("main-question"));
+          updateReadyState();
+        });
+        promptChips.appendChild(chip);
+
+        const chatChip = document.createElement("button");
+        chatChip.type = "button";
+        chatChip.className = "chip";
+        chatChip.textContent = prompt;
+        chatChip.addEventListener("click", () => {
+          chatInput.value = prompt;
+          chatInput.focus();
+        });
+        chatPromptChips.appendChild(chatChip);
+      });
+
+      updatePreview();
+      updateReadyState();
+      resetChat();
+    }
+
+    function bindAutosave() {
+      saveFields.forEach((field) => {
+        const eventName = field.type === "checkbox" ? "change" : "input";
+        field.addEventListener(eventName, () => {
+          persistField(field);
+          updatePreview();
+          updateReadyState();
+        });
+      });
+    }
+
+    function updatePreview() {
+      const pairs = [
+        ["cover-name",       "preview-cover",     "Belum diisi"],
+        ["profile-story",    "preview-story",     "Belum diisi"],
+        ["profile-action",   "preview-action",    "Belum diisi"],
+        ["profile-value-1",  "preview-value-1",   "Belum diisi"],
+        ["profile-evidence-1","preview-evidence-1","Belum diisi"],
+        ["profile-value-2",  "preview-value-2",   "Belum diisi"],
+        ["profile-evidence-2","preview-evidence-2","Belum diisi"],
+      ];
+
+      pairs.forEach(([fieldId, previewId, fallback]) => {
+        const source = document.getElementById(fieldId);
+        const target = document.getElementById(previewId);
+        target.textContent = source.value.trim() || fallback;
+      });
+    }
+
+    function updateReadyState() {
+      const mainQuestion   = document.getElementById("main-question").value.trim();
+      const followQuestion = document.getElementById("follow-question").value.trim();
+      const ready = Boolean(activeGuestKey && mainQuestion && followQuestion);
+      readyLabel.textContent = ready
+        ? "Sedia untuk temu duga"
+        : "Pilih fail misteri dan lengkapkan soalan utama serta susulan";
+      sendBtn.disabled = !ready || isSending;
+    }
+
+    function appendMessage(type, label, text) {
+      const node = document.createElement("div");
+      node.className = `msg ${type}`;
+      node.innerHTML = `<small>${label}</small><div>${text}</div>`;
+      chatLog.appendChild(node);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function setChatModeLabel(text) {
+      chatModeLabel.textContent = text;
+    }
+
+    async function checkHealth() {
+      try {
+        const response = await fetch("/health");
+        const data = await response.json();
+        chatMode = data.mode;
+        setChatModeLabel(data.mode === "live" ? `Mod langsung | ${data.model}` : "Mod demo");
+      } catch {
+        setChatModeLabel("Belum bersambung");
+      }
+    }
+
+    function resetChat() {
+      previousResponseId = null;
+      turnCount = 0;
+      localStorage.setItem(storagePrefix + "turnCount", "0");
+      chatLog.innerHTML = "";
+      appendMessage("bot", "Studio", "Mulakan dengan soalan tentang cerita, sebab, atau tindakan tetamu misteri. Jangan tanya nama terlalu awal.");
+    }
+
+    async function sendMessage(text) {
+      const message = text.trim();
+      if (!message || !activeGuestKey || sendBtn.disabled || isSending) return;
+
+      isSending = true;
+      updateReadyState();
+      appendMessage("user", "Wartawan", message);
+      chatInput.value = "";
+      turnCount += 1;
+      localStorage.setItem(storagePrefix + "turnCount", String(turnCount));
+      setChatModeLabel(chatMode === "live" ? "Mod langsung | sedang berfikir..." : "Mod demo | sedang menjawab...");
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message,
+            previousResponseId,
+            guestKey: activeGuestKey,
+            turnCount,
+          }),
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          appendMessage("bot", "Ralat", data.error || "Sesuatu tidak menjadi.");
+        } else {
+          previousResponseId = data.responseId || null;
+          chatMode = data.mode || chatMode;
+          appendMessage("bot", "Tetamu Misteri", data.reply || "Tiada jawapan.");
+          setChatModeLabel(chatMode === "live" ? "Mod langsung" : "Mod demo");
+        }
+      } catch {
+        appendMessage("bot", "Ralat", "Tidak dapat menyambung ke pelayan.");
+        setChatModeLabel("Masalah sambungan");
+      } finally {
+        isSending = false;
+        updateReadyState();
+      }
+    }
+
+    translationToggle.addEventListener("change", () => {
+      document.body.classList.toggle("show-translation", translationToggle.checked);
+    });
+
+    useMainBtn.addEventListener("click", () => {
+      chatInput.value = document.getElementById("main-question").value.trim();
+      chatInput.focus();
+    });
+
+    useFollowBtn.addEventListener("click", () => {
+      chatInput.value = document.getElementById("follow-question").value.trim();
+      chatInput.focus();
+    });
+
+    resetChatBtn.addEventListener("click", resetChat);
+    sendBtn.addEventListener("click", () => sendMessage(chatInput.value));
+    chatInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage(chatInput.value);
+      }
+    });
+
+    buildDossierCards();
+    restoreFields();
+    bindAutosave();
+    updatePreview();
+    updateReadyState();
+    if (!activeGuestKey) {
+      resetChat();
+    }
+    checkHealth();
+
+    document.getElementById("story-note").addEventListener("input", (event) => {
+      document.getElementById("profile-story").value = event.target.value;
+      persistField(document.getElementById("profile-story"));
+      updatePreview();
+    });
+
+    document.getElementById("motivation-note").addEventListener("input", (event) => {
+      document.getElementById("profile-action").value = event.target.value;
+      persistField(document.getElementById("profile-action"));
+      updatePreview();
+    });
+
+    document.getElementById("lesson-note").addEventListener("input", (event) => {
+      document.getElementById("profile-value-1").value = event.target.value;
+      persistField(document.getElementById("profile-value-1"));
+      updatePreview();
+    });
+
+    document.getElementById("evidence-note").addEventListener("input", (event) => {
+      document.getElementById("profile-evidence-1").value = event.target.value;
+      persistField(document.getElementById("profile-evidence-1"));
+      updatePreview();
+    });
+
+    // ── Export to PNG ─────────────────────────────────────────
+    function val(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+
+    function buildExportCard() {
+      const card = document.getElementById("export-card");
+      const now = new Date();
+      const dateStr = now.toLocaleDateString("ms-MY", { day: "numeric", month: "long", year: "numeric" });
+
+      const guestInfo = activeGuestKey && dossiers[activeGuestKey]
+        ? `${dossiers[activeGuestKey].label} — ${dossiers[activeGuestKey].title}`
+        : "—";
+
+      function row(label, value) {
+        const display = value || "—";
+        return `<div class="ec-row">
+          <div class="ec-row-label">${label}</div>
+          <div class="ec-row-val">${display}</div>
+        </div>`;
+      }
+
+      card.innerHTML = `
+        <div class="ec-header">
+          <div>
+            <div class="ec-wordmark">Wartawan Cilik</div>
+            <div class="ec-sub">Pelajaran 3 · Wawancara Bersama Tetamu Misteri</div>
+          </div>
+          <div class="ec-date">${dateStr}<br>${guestInfo}</div>
+        </div>
+
+        <div class="ec-cols">
+          <!-- Left: Profile -->
+          <div class="ec-block-dark">
+            <div class="ec-block-head">
+              <div class="ec-block-title">Kad Profil Rahsia</div>
+              <div class="ec-block-name">${val("cover-name") || "Nama belum diisi"}</div>
+            </div>
+            <div class="ec-rows">
+              ${row("Ringkasan cerita", val("profile-story"))}
+              ${row("Tindakan penting", val("profile-action"))}
+              ${row("Nilai RECIPE 1", val("profile-value-1"))}
+              ${row("Bukti bagi Nilai 1", val("profile-evidence-1"))}
+              ${row("Nilai RECIPE 2", val("profile-value-2"))}
+              ${row("Bukti bagi Nilai 2", val("profile-evidence-2"))}
+            </div>
+          </div>
+
+          <!-- Right: Reflection -->
+          <div class="ec-block">
+            <div class="ec-block-head">
+              <div class="ec-block-title">Refleksi Akhir</div>
+              <div class="ec-block-name">${val("fav-character") || "Watak belum dipilih"}</div>
+            </div>
+            <div class="ec-rows">
+              ${row("Tindakan watak dalam situasi baru", val("scenario-prediction"))}
+              ${row("Nilai RECIPE yang ingin dicuba (1)", val("reflect-value-1"))}
+              ${row("Cara menunjukkan nilai 1", val("future-use-1"))}
+              ${row("Nilai RECIPE yang ingin dicuba (2)", val("reflect-value-2"))}
+              ${row("Cara menunjukkan nilai 2", val("future-use-2"))}
+            </div>
+          </div>
+        </div>
+
+        <div class="ec-footer">
+          <div class="ec-footer-note">Wartawan Cilik · Open Classroom 2026</div>
+          <div class="ec-stamp">Pelajaran 3 Selesai</div>
+        </div>
+      `;
+    }
+
+    document.getElementById("export-btn").addEventListener("click", async () => {
+      const btn = document.getElementById("export-btn");
+      const hint = document.getElementById("export-hint");
+
+      btn.disabled = true;
+      btn.innerHTML = `<svg class="export-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 3" opacity="0.6"/></svg> Sedang menyediakan...`;
+
+      try {
+        buildExportCard();
+        const card = document.getElementById("export-card");
+
+        // Temporarily position offscreen but visible so html2canvas can render fonts
+        card.style.position = "absolute";
+        card.style.top = "-9999px";
+        card.style.left = "0";
+
+        const canvas = await html2canvas(card, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#F6F0E4",
+          logging: false,
+          width: 900,
+        });
+
+        // Restore hidden state
+        card.style.position = "fixed";
+        card.style.top = "-9999px";
+        card.style.left = "-9999px";
+
+        const link = document.createElement("a");
+        const guestLabel = activeGuestKey && dossiers[activeGuestKey]
+          ? dossiers[activeGuestKey].label.replace(" ", "")
+          : "Pelajaran3";
+        link.download = `WartawanCilik-P3-${guestLabel}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        hint.textContent = "Fail PNG telah dimuat turun. Simpan di folder kamu.";
+        hint.style.color = "var(--teal)";
+      } catch (err) {
+        console.error(err);
+        hint.textContent = "Ralat semasa mengeksport. Cuba semula.";
+        hint.style.color = "var(--rose)";
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<svg class="export-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 13L10 3M10 13L7 10M10 13L13 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 15H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Simpan Kerja Saya sebagai PNG`;
+      }
+    });
+  </script>
+</body>
+</html>
