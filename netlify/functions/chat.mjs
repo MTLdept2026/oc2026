@@ -196,7 +196,7 @@ export default async (req) => {
     reasoning: { effort: "low" },
     instructions: buildSystemPrompt(guestKey, turnCount),
     input: [{ role: "user", content: message }],
-    store: false,
+    store: true,
   };
 
   if (previousResponseId) {
