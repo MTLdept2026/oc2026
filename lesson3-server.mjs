@@ -44,13 +44,14 @@ Story anchors:
 - Your story highlights integrity, resilience, and inner strength.
 - Avoid graphic details. Keep the story suitable for children.
 `.trim(),
-  matjenin: `
-You are roleplaying as Mat Jenin from Malay folklore for 12-year-old students in Singapore.
+  hangtuah: `
+You are roleplaying as Hang Tuah from Malay folklore for 12-year-old students in Singapore.
 Story anchors:
-- You are a young man who dreams big and imagines a better future.
-- You daydream while working and lose focus on the task in front of you.
-- Your story teaches that dreams are useful only when matched with action, focus, and planning.
-- Your story can connect to passion, reflection, and learning from mistakes.
+- You are a famous warrior known for loyalty and courage.
+- You were falsely accused and nearly killed because of palace lies.
+- Hang Jebat, your close friend, believed you were dead and rebelled.
+- You had to face a painful choice between friendship and duty.
+- Your story highlights loyalty, sacrifice, and difficult choices.
 `.trim(),
 };
 
@@ -64,13 +65,14 @@ Rules:
 - Speak only in simple Malay.
 - Keep answers short, clear, and child-friendly.
 - Stay fully in character at all times.
-- Focus on your story, your actions, your motivations, and the lesson from your experience.
+- Answer only the part the student asked about.
+- If the student asks about your story, explain what happened without adding the lesson unless they ask for the lesson.
+- If the student asks for your name, answer directly even if it is early in the conversation.
+- Focus on your story, your actions, and your motivations first. Share the lesson only when the student asks about the lesson, value, advice, or what you learned.
 - If students ask something off-topic, gently bring them back to your story.
-- If students ask for your name too early, do not reveal or confirm it yet.
 - Encourage students to ask about what happened, why you acted that way, and what you learned.
 - Current student question count so far: ${turnCount}.
-- If the count is less than 3 and the student asks your name or guesses your identity, reply with a clue and invite more questions instead of confirming.
-- After the count reaches 3, you may confirm your identity if the student asks directly or guesses correctly.
+- If the student guesses your identity correctly, you may confirm it directly.
 - Connect naturally to a value or life lesson when helpful, but do not sound like a textbook.
 - Do not invent graphic or disturbing details.
 `.trim();
@@ -130,16 +132,6 @@ function extractOutputText(payload) {
 function buildMockReply(message, guestKey = "nadim", turnCount = 0) {
   const lower = String(message || "").toLowerCase();
 
-  if ((lower.includes("siapa") || lower.includes("nama") || lower.includes("adakah kamu")) && turnCount < 3) {
-    if (guestKey === "mahsuri") {
-      return "Nama saya belum penting lagi. Tanya dulu apa yang berlaku dalam hidup saya dan mengapa saya tetap kuat.";
-    }
-    if (guestKey === "matjenin") {
-      return "Nama saya belum penting lagi. Tanya dulu tentang impian saya dan kesilapan yang saya buat.";
-    }
-    return "Nama saya belum penting lagi. Tanya dulu tentang bahaya yang berlaku dan kenapa saya bertindak begitu.";
-  }
-
   if (guestKey === "mahsuri") {
     if (lower.includes("nama") || lower.includes("siapa") || lower.includes("mahsuri")) {
       return "Ya, saya Mahsuri. Saya diingati kerana saya tetap jujur walaupun diperlakukan dengan tidak adil.";
@@ -159,33 +151,30 @@ function buildMockReply(message, guestKey = "nadim", turnCount = 0) {
     return "Kisah saya tentang fitnah, kejujuran, dan kekuatan hati. Tanyalah apa yang berlaku atau apa yang saya pelajari.";
   }
 
-  if (guestKey === "matjenin") {
-    if (lower.includes("nama") || lower.includes("siapa") || lower.includes("mat jenin") || lower.includes("matjenin")) {
-      return "Ya, saya Mat Jenin. Orang ingat saya kerana saya berangan besar tetapi kurang fokus pada tugas saya.";
+  if (guestKey === "hangtuah") {
+    if (lower.includes("nama") || lower.includes("siapa") || lower.includes("hang tuah") || lower.includes("hangtuah")) {
+      return "Ya, saya Hang Tuah. Saya dikenali sebagai pahlawan yang sangat setia kepada Sultan Melaka.";
     }
-    if (lower.includes("pengajaran") || lower.includes("belajar") || lower.includes("nilai")) {
-      return "Saya belajar bahawa semangat itu baik, tetapi kita mesti bertindak dengan sabar, fokus, dan perancangan.";
+    if (lower.includes("pengajaran") || lower.includes("belajar") || lower.includes("nilai") || lower.includes("nasihat")) {
+      return "Saya belajar bahawa kesetiaan dan tanggungjawab kadangkala sangat berat, jadi kita mesti berpegang pada nilai dengan hati-hati.";
     }
-    if (lower.includes("apa") || lower.includes("berlaku") || lower.includes("masalah") || lower.includes("jatuh")) {
-      return "Saya terlalu asyik membayangkan masa depan sampai saya tidak memberi perhatian kepada apa yang saya sedang buat.";
+    if (lower.includes("apa") || lower.includes("berlaku") || lower.includes("masalah") || lower.includes("fitnah") || lower.includes("tuduh")) {
+      return "Saya difitnah di istana dan Sultan percaya tuduhan itu. Ramai orang menyangka saya telah mati.";
     }
-    if (lower.includes("kenapa") || lower.includes("mengapa") || lower.includes("impian") || lower.includes("berangan")) {
-      return "Saya berangan kerana saya mahu hidup yang lebih baik. Tetapi saya lupa bahawa impian perlu disertai usaha dan fokus.";
+    if (lower.includes("kenapa") || lower.includes("mengapa") || lower.includes("setia") || lower.includes("sultan")) {
+      return "Saya tetap setia kerana itu amanah dan tanggungjawab saya sebagai seorang pahlawan.";
     }
-    if (lower.includes("bagaimana")) {
-      return "Saya belajar bahawa semangat itu baik, tetapi kita mesti bertindak dengan sabar, fokus, dan perancangan.";
+    if (lower.includes("bagaimana") || lower.includes("jebat") || lower.includes("sahabat") || lower.includes("lawan")) {
+      return "Saya terpaksa berdepan dengan Hang Jebat, sahabat saya sendiri. Itu keputusan yang sangat menyakitkan.";
     }
-    if (lower.includes("nasihat")) {
-      return "Bermimpilah besar, tetapi jangan lupa langkah kecil yang perlu dibuat hari ini.";
-    }
-    return "Kisah saya tentang impian, kesilapan, dan pelajaran hidup. Tanyalah apa yang saya mahu capai atau apa yang saya pelajari.";
+    return "Kisah saya tentang fitnah, kesetiaan, dan pilihan yang sangat berat. Tanyalah apa yang berlaku atau mengapa saya membuat keputusan itu.";
   }
 
   if (lower.includes("nama") || lower.includes("siapa") || lower.includes("hang nadim")) {
     return "Ya, saya Hang Nadim. Saya cuba selamatkan Temasek dengan akal dan keberanian.";
   }
 
-  if (lower.includes("bahaya") || lower.includes("masalah") || lower.includes("todak")) {
+  if (lower.includes("apa") || lower.includes("berlaku") || lower.includes("cerita") || lower.includes("bahaya") || lower.includes("masalah") || lower.includes("todak")) {
     return "Banyak ikan todak menyerang pantai Temasek. Orang ramai berada dalam bahaya.";
   }
 

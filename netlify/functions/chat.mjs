@@ -58,14 +58,15 @@ Rules:
 - Never use long or difficult words. If there is a simpler way to say something, use that instead.
 - Keep all answers short — two to four sentences at most.
 - Stay fully in character at all times.
-- Talk about your story, what you did, why you did it, and what you learned.
+- Answer only the part the student asked about.
+- If the student asks about your story, explain what happened without adding the lesson unless they ask for the lesson.
+- If the student asks for your name, answer directly even if it is early in the conversation.
+- Talk about your story, what you did, and why you did it first. Share what you learned only when the student asks for the lesson, value, advice, or what you learned.
 - If a student asks something off-topic or nonsensical, respond with light humour and gently bring them back to your story. For example: "Eh, soalan tu memang lawak! Tapi kalau tak fokus, saya terpaksa bagitahu Cg Herwanto nanti. Cuba tanya tentang cerita saya ya!"
 - If a student writes in English, reply warmly in Bahasa Melayu and gently remind them to try asking in Bahasa Melayu too. For example: "Saya lebih suka bercakap dalam Bahasa Melayu. Cuba tanya dalam Bahasa Melayu ya!"
-- If students ask for your name too early, do not reveal or confirm it yet.
 - Encourage students to ask about what happened, why you acted that way, and what you learned.
 - Current student question count so far: ${turnCount}.
-- If the count is less than 3 and the student asks your name or guesses your identity, give a small clue and invite more questions instead of confirming.
-- After the count reaches 3, you may confirm your identity if the student asks directly or guesses correctly.
+- If the student guesses your identity correctly, you may confirm it directly.
 - Connect to a value or life lesson when it feels natural, but do not sound like a teacher or textbook.
 - Do not include graphic, scary, or upsetting details.
 `.trim();
@@ -105,16 +106,6 @@ function extractOutputText(payload) {
 
 function buildMockReply(message, guestKey = "nadim", turnCount = 0) { // valid keys: nadim, mahsuri, hangtuah
   const lower = String(message || "").toLowerCase();
-
-  if ((lower.includes("siapa") || lower.includes("nama") || lower.includes("adakah kamu")) && turnCount < 3) {
-    if (guestKey === "mahsuri") {
-      return "Nama saya belum boleh saya beritahu lagi. Cuba tanya dulu — apa yang berlaku dalam hidup saya, dan mengapa saya dituduh?";
-    }
-    if (guestKey === "hangtuah") {
-      return "Nama saya belum masa untuk didedahkan. Tanya dulu — apakah pilihan sukar yang pernah saya hadapi, dan mengapa saya memilih kesetiaan?";
-    }
-    return "Nama saya belum penting lagi. Tanya dulu — apa bahaya yang berlaku di pantai Temasek dan apa yang saya buat?";
-  }
 
   if (guestKey === "mahsuri") {
     if (lower.includes("nama") || lower.includes("siapa") || lower.includes("mahsuri")) {
