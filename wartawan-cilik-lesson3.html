@@ -1603,12 +1603,13 @@
     }
 
     function updateReadyState() {
-      const mainQuestion   = document.getElementById("main-question").value.trim();
-      const followQuestion = document.getElementById("follow-question").value.trim();
-      const ready = Boolean(activeGuestKey && mainQuestion && followQuestion);
-      readyLabel.textContent = ready
-        ? "Sedia untuk temu duga"
-        : "Pilih fail misteri dan lengkapkan soalan utama serta susulan";
+      const chatText = chatInput ? chatInput.value.trim() : "";
+      const ready = Boolean(activeGuestKey && chatText);
+      readyLabel.textContent = isSending
+        ? "Sedang menghantar..."
+        : activeGuestKey
+          ? "Taip soalan untuk memulakan temu duga"
+          : "Pilih fail misteri untuk memulakan temu duga";
       sendBtn.disabled = !ready || isSending;
     }
 
@@ -1701,6 +1702,7 @@
 
     resetChatBtn.addEventListener("click", resetChat);
     sendBtn.addEventListener("click", () => sendMessage(chatInput.value));
+    chatInput.addEventListener("input", () => updateReadyState());
     chatInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
